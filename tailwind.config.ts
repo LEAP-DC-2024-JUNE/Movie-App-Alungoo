@@ -1,3 +1,4 @@
+import { Inter } from "next/font/google";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -51,6 +52,9 @@ export default {
   				'5': 'hsl(var(--chart-5))'
   			}
   		},
+			fontFamily: {
+				Inter: ['var(--font-inter)'],
+			},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

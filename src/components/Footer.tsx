@@ -1,11 +1,11 @@
 import React from "react";
-import MovieZ from "../app/svg/MovieZDark";
-import Mail from "../app/svg/Mail";
-import Phone from "../app/svg/Phone";
+import MovieZ from "../../svg/MovieZDark";
+import Mail from "../../svg/Mail";
+import Phone from "../../svg/Phone";
 
 const Footer = () => {
   return (
-    <div className=" bg-indigo-700 w-full h-[308px] flex flex-col gap-6 px-5 py-6 text-white">
+    <div className=" mt-[32px] bg-indigo-700 w-full flex flex-col gap-6 px-5 py-6 text-white">
       <div className=" flex flex-col gap-2 ">
         <MovieZ />
         <p>© 2024 Movie Z. All Rights Reserved.</p>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const MovieLight = () => {
+const MovieZLight = () => {
   return (
     <svg
       width="93"
@@ -23,4 +23,4 @@ const MovieLight = () => {
   );
 };
 
-export default MovieLight;
+export default MovieZLight;

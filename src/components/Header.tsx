@@ -1,28 +1,30 @@
-import MovieLight from "@/app/svg/MovieZLight";
-import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
-import { Moon } from "lucide-react";
-import React from "react";
+import React from "react"
+import MovieZLight from "../../svg/MovieZLight";
+import HeaderClient from "./HeaderClient";
+import GenreMovies from "./GenreMovies";
 
 const Header = () => {
   return (
-    <div
-      className=" flex 
-   flex-row items-center w-[380px] h-[59px] mt-[50px] justify-between px-4"
-    >
+    <div className="flex flex-row items-center w-full h-[59px] justify-between px-5">
+     
       <div>
-        <MovieLight />
+        <MovieZLight />
       </div>
-      <div className=" flex gap-3">
-        <Button variant="outline" size="icon">
-          <Search />
-        </Button>
-        <Button variant="outline" size="icon">
-          <Moon />
-        </Button>
-      </div>
+      <div>
+        <GenreMovies/>
+
+        </div>
+
+      <div>
+
+      <HeaderClient/>
+        </div>
+
+
+      
+      
     </div>
-  );
+  )
 };
 
 export default Header;
