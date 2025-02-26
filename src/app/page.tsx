@@ -1,6 +1,7 @@
 import React from "react";
 import CarouselContainer from "@/components/CarouselContainer";
 import PopularMovieContainer from "@/components/popularMovieContainer";
+import YouTube from "react-youtube";
 export type Movie = {
   id: number;
   title: string;

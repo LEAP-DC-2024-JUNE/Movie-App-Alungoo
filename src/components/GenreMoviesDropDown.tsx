@@ -20,23 +20,28 @@ type DropDownProps = {
 
 const GenreMoviesDropDown = ({ genres }: DropDownProps) => {
   return (
-    <DropdownMenu>
+    <div >
+
+    <DropdownMenu >
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="flex items-center gap-2">
        <ChevronDown />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[335px] h-[513px] px-5">
+      <DropdownMenuContent className="w-[372px] h-auto px-5 mx-5">
         <DropdownMenuLabel className=" text-[24px]">Genres</DropdownMenuLabel>
         <DropdownMenuLabel className=" text-[16px] font-normal">See lists of movies by genre</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className=" border-[1px]"/>
+        <div className="flex flex-row gap-1 flex-wrap py-2">
         {genres.map((movieGenre) => (
-            <DropdownMenuItem key={movieGenre.id} className="cursor-pointer">
+            <DropdownMenuItem key={movieGenre.id} className="">
               <Badges eachGenres={movieGenre} />
             </DropdownMenuItem>
           ))}
+          </div>
       </DropdownMenuContent>
     </DropdownMenu>
+    </div>
   );
 };
 

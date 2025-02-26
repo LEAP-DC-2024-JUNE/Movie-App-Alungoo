@@ -1,5 +1,5 @@
 "use client";
-
+import MovieZLight from "../../svg/MovieZLight";
 import { Button } from "@/components/ui/button";
 import { Search, Moon,Sun } from "lucide-react";
 import React, { useState } from "react";
@@ -20,7 +20,13 @@ const HeaderClient = () => {
     exit={{ opacity: 0, y: -20 }}
     transition={{ duration: 0.3, ease: "easeInOut" }} className="flex flex-row items-center w-full h-[59px] justify-between ">
      
-      <div className="flex gap-3">
+     
+      <div>
+        <MovieZLight />
+      </div>
+      <div>
+<div className=" flex gap-3">
+
         <Button variant="outline" size="icon" onClick={() => setIsClicked(true)}>
           <Search />
         </Button>
@@ -43,7 +49,9 @@ const HeaderClient = () => {
             <Moon />
           </Button>
         )}
+</div>
       </div>
+    
     </motion.div>
   );
 };

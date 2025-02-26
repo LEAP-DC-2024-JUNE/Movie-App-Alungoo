@@ -1,10 +1,14 @@
 "use client"
-import { Play, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Star } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from 'embla-carousel-autoplay';
+import Image from "next/image";
+import YoutubeTrailer from
+"./Youtube";
 
-type NowPlayingMovie = {
+
+
+export type NowPlayingMovie = {
   id: number;
   title: string;
   overview: string;
@@ -21,20 +25,19 @@ const CarouselCard = ({ currentMovies }: CarouselCardProps) => {
     <Carousel
       plugins={[Autoplay()]}
       opts={{
-
         loop: true,
       }}
-      className="w-full relative"
     >
       <CarouselContent>
         {currentMovies.map((movie, index) => (
           <CarouselItem key={index}>
             <div className="flex flex-col w-full">
-              <div className="w-full object-contain ">
-                <img 
+              <div className="w-full relative h-[290px] ">
+                <Image
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-                  alt={movie.title} 
-                  className="w-full h-"
+                  alt="Cover Example"
+                  layout="fill"
+                  objectFit="fill"
                 />
               </div>
               <div className="rounded-none flex flex-col justify-start">
@@ -53,15 +56,13 @@ const CarouselCard = ({ currentMovies }: CarouselCardProps) => {
                         </div>
                       </div>
                       <div>
-                        <p className="text-[#09090B] text-sm font-normal line-clamp-5 font-Inter leading-5 dark:text-white">{movie.overview}</p>
+                        <p className="text-[#09090B] text-sm font-normal line-clamp-5 leading-5 dark:text-white">{movie.overview}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="p-0 px-5 pb-5 bg-[#FAFAFA] dark:bg-black dark:text-white">
-                  <Button className="dark:bg-zinc-800 dark:text-white">
-                    <Play className="mr-2 h-4 w-4" /> Watch Trailer
-                  </Button>
+                <div className=" px-5">
+                  <YoutubeTrailer movieId={movie.id}/>
                 </div>
               </div>
             </div>

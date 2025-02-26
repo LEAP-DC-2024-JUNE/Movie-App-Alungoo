@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import GenreMovies from "./GenreMovies";
 
 
+
 interface SearchInputProps {
   onClose: () => void;
 }
@@ -18,9 +19,9 @@ const SearchInput = ({onClose}:SearchInputProps) => {
     transition={{ duration: 0.3, ease: "easeInOut" }}>
 
         
-    
 
-      <div className=" flex gap-4 items-center px-5 h-[58px]">
+      <div className=" flex gap-4 items-center  h-[58px]">
+    <GenreMovies/>
         <div className=" flex items-center ">
           <Search size={16} strokeWidth={2} color="#71717A"/>
           <input className=" w-[240px] h-[20px] py-[12px] px-[12px]" type=" text" placeholder="Search ... "/>

@@ -12,7 +12,7 @@ export type Movie = {
  
 };
 const popularMovieContainer = async () => {
-  const popularMovie = await fetchMovies(
+  const popularMovie:Movie[] = await fetchMovies(
     "/movie/popular?language=en-US&page=1"
   );
 
