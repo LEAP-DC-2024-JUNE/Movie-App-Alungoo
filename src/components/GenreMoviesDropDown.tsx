@@ -20,27 +20,28 @@ type DropDownProps = {
 
 const GenreMoviesDropDown = ({ genres }: DropDownProps) => {
   return (
-    <div >
-
-    <DropdownMenu >
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="flex items-center gap-2">
-       <ChevronDown />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[372px] h-auto px-5 mx-5">
-        <DropdownMenuLabel className=" text-[24px]">Genres</DropdownMenuLabel>
-        <DropdownMenuLabel className=" text-[16px] font-normal">See lists of movies by genre</DropdownMenuLabel>
-        <DropdownMenuSeparator className=" border-[1px]"/>
-        <div className="flex flex-row gap-1 flex-wrap py-2">
-        {genres.map((movieGenre) => (
-            <DropdownMenuItem key={movieGenre.id} className="">
-              <Badges eachGenres={movieGenre} />
-            </DropdownMenuItem>
-          ))}
+    <div>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" className="flex items-center gap-2">
+            <ChevronDown />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-[372px] h-auto px-5 mx-5 ">
+          <DropdownMenuLabel className=" text-[24px]">Genres</DropdownMenuLabel>
+          <DropdownMenuLabel className=" text-[16px] font-normal">
+            See lists of movies by genre
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator className=" border-[1px]" />
+          <div className="flex flex-row gap-1 flex-wrap py-2 ">
+            {genres.map((movieGenre) => (
+              <DropdownMenuItem key={movieGenre.id} className="">
+                <Badges eachGenres={movieGenre} />
+              </DropdownMenuItem>
+            ))}
           </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };

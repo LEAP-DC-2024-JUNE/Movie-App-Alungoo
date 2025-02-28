@@ -1,5 +1,5 @@
 import React from "react";
-import CarouselContainer from "@/components/CarouselContainer";
+import CarouselContainer from "../components/CarouselContainer";
 import PopularMovieContainer from "@/components/popularMovieContainer";
 import YouTube from "react-youtube";
 export type Movie = {
@@ -9,12 +9,10 @@ export type Movie = {
   vote_average: number;
 };
 const Home = async () => {
- 
-
   return (
     <div className=" flex flex-col justify-center gap-[32px]">
-      <CarouselContainer/>
-      <PopularMovieContainer/>
+      <CarouselContainer />
+      <PopularMovieContainer />
     </div>
   );
 };
