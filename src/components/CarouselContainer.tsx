@@ -12,14 +12,19 @@ export type NowPlayingMovie = {
   poster_path: string;
   vote_average: number;
 };
-
+export type MovieResponse = {
+    results: NowPlayingMovie[];
+  };
 const CarouselContainer = async () => {
-  const nowPlaying: NowPlayingMovie[] = await fetchMovies(
+
+  const nowPlaying: MovieResponse = await fetchMovies(
     "/movie/now_playing?language=en-US&page=1"
   );
+
+  
   return (
     <AutoplayCarousel>
-      {nowPlaying.map((movie, index) => (
+      {nowPlaying?.results?.map((movie, index) => (
         <CarouselItem key={index}>
           <div className="flex flex-col w-full">
             <div className="w-full relative h-[290px] ">

@@ -12,21 +12,24 @@ import {
 import { ChevronDown } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badges } from "./Badges";
-import { MovieGenre } from "./GenreMovies";
+import { MovieGenre } from "@/utils/types";
 
 type DropDownProps = {
   genres: MovieGenre[];
+  withButton: boolean;
 };
 
-const GenreMoviesDropDown = ({ genres }: DropDownProps) => {
+const GenreMoviesDropDown = ({ genres, withButton }: DropDownProps) => {
   return (
     <div>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="flex items-center gap-2">
-            <ChevronDown />
-          </Button>
-        </DropdownMenuTrigger>
+        {!withButton && (
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="flex items-center gap-2">
+              <ChevronDown />
+            </Button>
+          </DropdownMenuTrigger>
+        )}
         <DropdownMenuContent className="w-[372px] h-auto px-5 mx-5 ">
           <DropdownMenuLabel className=" text-[24px]">Genres</DropdownMenuLabel>
           <DropdownMenuLabel className=" text-[16px] font-normal">

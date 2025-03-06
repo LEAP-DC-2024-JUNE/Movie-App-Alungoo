@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import SearchInput from "./SearchInput";
 import { motion } from "motion/react";
 import { useTheme } from "next-themes";
+import Link from "next/link";
 
 const HeaderClient = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -22,9 +23,9 @@ const HeaderClient = () => {
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className="flex flex-row items-center w-full h-[59px] justify-between "
     >
-      <div>
+      <Link href="/">
         <MovieZLight />
-      </div>
+      </Link>
       <div>
         <div className=" flex gap-3">
           <Button

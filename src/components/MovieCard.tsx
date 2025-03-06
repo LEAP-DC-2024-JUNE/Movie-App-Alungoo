@@ -1,27 +1,33 @@
-import React from "react";
-import { Movie } from "@/app/page";
+"use client"
+import React, { useEffect, useState } from "react";
+import { Movie } from "../utils/types";
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Star } from "lucide-react";
+import { LoadingMovieCard } from "./LoadingMovieCard";
 
 type MovieCardProps = {
   movie: Movie;
 };
-const PopularMovieCard = ({ movie }: MovieCardProps) => {
+const MovieCard = ({ movie }: MovieCardProps) => {
+  const [loading, setLoading] = useState(true)
+useEffect(() => {
+  setLoading(false)
+})
+  if (loading)
+    return  <div>
+      <LoadingMovieCard/>
+      </div>
   return (
+
     <Card className=" w-[180px] h-auto ">
-    
         <CardTitle className=" p-0">
           <img
             src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
             alt={movie.title}
-            className=" rounded-t-[8px] p-0 w-[180px] h-[233.1px] transition duration-300 hover:brightness-75"
+            className=" rounded-t-[8px] p-0 w-[180px] h-[233.1px] grayscale-[0.5] hover:grayscale-0"
           />
           <div className="h-[60px] rounded-b-[8px] bg-[#F4F4F5]  dark:bg-zinc-800 dark:text-white self-stretch flex flex-col gap-1 p-2">
               <div className="flex flex-row items-center">
@@ -41,4 +47,4 @@ const PopularMovieCard = ({ movie }: MovieCardProps) => {
   );
 };
 
-export default PopularMovieCard;
+export default MovieCard;

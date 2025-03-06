@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
-import { MovieGenre } from "./GenreMovies";
 import { ChevronRight } from "lucide-react";
+import { MovieGenre } from "@/utils/types";
 type GenresProps = {
   eachGenres: MovieGenre;
 };
