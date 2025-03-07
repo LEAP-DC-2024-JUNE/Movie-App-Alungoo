@@ -9,20 +9,7 @@ import useSWR from "swr";
 import SearchResultCard from "./SearchResultCard";
 import { Input } from "./ui/input";
 import { useRouter } from "next/navigation";
-
-export interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path: string;
-  backdrop_path: string;
-  release_date: string;
-  vote_average: number;
-  vote_count: number;
-  popularity: number;
-  genre_ids: number[];
-  name: string;
-}
+import { Movie } from "@/utils/types";
 
 interface SearchInputProps {
   onClose: () => void;
@@ -33,25 +20,17 @@ const SearchInput = ({ onClose }: SearchInputProps) => {
   const [searchInput, setSearchInput] = useState("");
   const [open, setOpen] = useState(false);
   const { data, error, isLoading } = useSWR(
-    searchInput.length > 0
-      ? `/search/movie?query=${searchInput}&language=en-US`
-      : null,
-    fetchMovies,
-    {
-      onSuccess: (data) => console.log("Search results:", data),
-      onError: (err) => console.error("Search error:", err),
-    }
+    `/search/movie?query=${searchInput}&language=en-US`,
+    fetchMovies
   );
-
-  useEffect(() => {
-    if (error) {
-      console.error("Error fetching search results:", error);
-    }
-  }, [error]);
 
   const handleSearch = () => {
     if (!searchInput.trim()) return;
     router.push(`/search?query=${searchInput}`);
+    setOpen(false);
+  };
+
+  const closeDropDown = () => {
     setOpen(false);
   };
   console.log(data, "input");
@@ -92,7 +71,11 @@ const SearchInput = ({ onClose }: SearchInputProps) => {
                 data.results
                   .slice(0, 5)
                   .map((movie: Movie) => (
-                    <SearchResultCard key={movie.id} movie={movie} />
+                    <SearchResultCard
+                      key={movie.id}
+                      movie={movie}
+                      onSelect={closeDropDown}
+                    />
                   ))
               ) : (
                 <div className="p-2 text-center">No results found</div>

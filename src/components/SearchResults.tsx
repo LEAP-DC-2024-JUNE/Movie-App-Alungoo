@@ -13,7 +13,6 @@ import GenreMovies from "./GenreMovies";
 const SearchResults = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
-
   const { data, error, isLoading } = useSWR(
     query ? `/search/movie?query=${query}&language=en-US` : null,
     fetchMovies

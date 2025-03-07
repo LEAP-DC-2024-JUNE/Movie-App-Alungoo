@@ -10,7 +10,7 @@ const Home = async () => {
     fetchMovies("/movie/top_rated?language=en-US&page=1"),
   ]);
   return (
-    <div className=" flex flex-col justify-center gap-[32px] md: flex-wrap">
+    <div className=" flex flex-col justify-center gap-[32px]">
       <CarouselContainer />
       <MovieContainer
         title="Upcoming"

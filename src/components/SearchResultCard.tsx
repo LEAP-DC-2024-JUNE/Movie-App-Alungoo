@@ -1,15 +1,25 @@
 import { Movie } from "@/utils/types";
-import React from "react";
+import React, { useState } from "react";
 import { Star } from "lucide-react";
 import SeeMoreButton from "./SeeMoreButton";
+import { useRouter } from "next/navigation";
 
 type SearchResultProps = {
   movie: Movie;
+  onSelect?: () => void;
 };
-const SearchResultCard = ({ movie }: SearchResultProps) => {
+const SearchResultCard = ({ movie, onSelect }: SearchResultProps) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/movie/${movie.id}`);
+    if (onSelect) {
+      onSelect();
+    }
+  };
   return (
     <>
-      <div className=" flex gap-3 p-2 ">
+      <div className=" flex gap-3 p-2" onClick={handleClick}>
         <div>
           <img
             src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
@@ -38,7 +48,10 @@ const SearchResultCard = ({ movie }: SearchResultProps) => {
                 ? new Date(movie.release_date).getFullYear()
                 : "N/A"}
             </div>
-            <div className=" pt-3">{/* <SeeMoreButton/> */}</div>
+            <div className=" pt-3" onClick={handleClick}>
+              {" "}
+              See More →
+            </div>
           </div>
         </div>
       </div>

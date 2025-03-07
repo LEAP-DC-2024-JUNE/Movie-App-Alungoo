@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Pagination,
   PaginationContent,
@@ -29,7 +28,7 @@ export default function PaginationControls({
   }
 
   const handlePageChange = (page: number) => {
-    const newUrl = `${baseUrl}&page=${page}`; // Corrected URL format
+    const newUrl = `${baseUrl}&page=${page}`;
     router.push(newUrl);
   };
 
