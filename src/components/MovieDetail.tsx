@@ -37,10 +37,10 @@ const MovieDetail = () => {
     width: "100%",
   };
 
-  // const handleMoviesPage = () => {
-  //   router.push("/")
-
-  // }
+  const handleMoviesPage = () => {
+    router.push(`/movies/?type=${movieSimilar?.results}`);
+    console.log(movieSimilar?.results, ">>Similar movie");
+  };
   const videos = movieVideo?.results || movieVideo || [];
   const videoKey = videos.length > 0 ? videos[0]?.key : null;
   const formatRevenue = (num: number | undefined) => {
@@ -61,7 +61,7 @@ const MovieDetail = () => {
 
   return (
     <>
-      <div className=" flex justify-between px-5">
+      <div className=" pt-8 flex justify-between px-5 pb-4">
         <div>
           <div className=" font-bold">{movieDetail?.title}</div>
           <div className=" flex  gap-1 items-center">
@@ -100,13 +100,13 @@ const MovieDetail = () => {
           </p>
         </div>
       )}
-      <div className=" flex gap-4 px-5 mt-4">
+      <div className=" flex gap-8 px-5 pt-8">
         <img
           src={`https://image.tmdb.org/t/p/w400${movieDetail?.poster_path}`}
           alt="movie poster"
           className="  p-0 w-[100px] h-[148px] grayscale-[0.5] hover:grayscale-0"
         />
-        <div className="flex flex-wrap gap-2 pl-4">
+        <div className="flex flex-wrap gap-2">
           {movieDetail?.genres?.map((genre: any) => (
             <Badge
               variant="outline"
@@ -116,29 +116,37 @@ const MovieDetail = () => {
               {genre?.name}
             </Badge>
           ))}
-          <p className="text-xs leading-relaxed overflow-auto px-3">
+          <p className="text-sm leading-relaxed overflow-auto ">
             {movieDetail?.overview}
           </p>
         </div>
       </div>
-      <div className=" flex flex-col px-5 gap-4 text-[12px]/4 mt-4">
-        <div className=" flex gap-[99px]">
+      <div className=" flex flex-col px-5 gap-5 pt-5">
+        <div className=" flex gap-[53px] items-center">
           <p className=" font-bold">Writers:</p>
-          <p className="  ">
-            {movieCredits?.crew?.slice(0, 3).map((writers: any) => (
-              <span key={writers.id}>{writers.name} •</span>
-            ))}
+          <p className="">
+            {movieCredits?.crew
+              ?.slice(0, 3)
+              .map((writers: any, index: number, array: any) => (
+                <span className=" text-sm" key={writers.id}>
+                  {writers.name}
+                  {index !== array.length - 1 ? " •" : ""}
+                </span>
+              ))}
           </p>
         </div>
         <Separator orientation="horizontal" />
-        <div className="flex gap-[50px]">
+        <div className="flex gap-[63px] items-center">
           <p className=" font-bold">Stars:</p>
-          <p className=" flex flex-row">
+          <p className=" ">
             {movieCredits?.cast && movieCredits.cast.length > 0 ? (
               movieCredits.cast
                 .slice(0, 3)
-                .map((stars: any, index: any) => (
-                  <p key={index}>{stars.name} •</p>
+                .map((stars: any, index: number, array: any) => (
+                  <span className=" text-sm" key={index}>
+                    {stars.name}
+                    {index !== array.length - 1 ? " •" : ""}
+                  </span>
                 ))
             ) : (
               <p>No cast members available</p>
@@ -147,14 +155,14 @@ const MovieDetail = () => {
         </div>
         <Separator orientation="horizontal" />
       </div>
-      <div className=" flex flex-col justify-start px-5 mt-4">
+      <div className=" flex flex-col justify-start px-5 py-8">
         <div className=" flex justify-between">
-          <p className=" font-bold text-[20px]">More like this</p>
-          {/* <p onClick={handleMoviesPage}>
+          <p className=" font-bold text-[24px]">More like this</p>
+          <p onClick={handleMoviesPage}>
             <SeeMoreButton categoryType="More like this" />
-          </p> */}
+          </p>
         </div>
-        <div className=" flex flex-row gap-3 mt-4">
+        <div className=" flex flex-row gap-5 mt-4">
           {movieSimilar?.results.slice(0, 2).map((movie: any) => (
             <MovieCard movie={movie} />
           ))}

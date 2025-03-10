@@ -16,20 +16,19 @@ import { MovieGenre } from "@/utils/types";
 
 type DropDownProps = {
   genres: MovieGenre[];
-  withButton: boolean;
 };
 
-const GenreMoviesDropDown = ({ genres, withButton }: DropDownProps) => {
+const GenreMoviesDropDown = ({ genres }: DropDownProps) => {
   return (
     <div>
       <DropdownMenu>
-        {!withButton && (
+        {
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="flex items-center gap-2">
               <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
-        )}
+        }
         <DropdownMenuContent className="w-[372px] h-auto px-5 mx-5 ">
           <DropdownMenuLabel className=" text-[24px]">Genres</DropdownMenuLabel>
           <DropdownMenuLabel className=" text-[16px] font-normal">

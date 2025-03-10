@@ -44,7 +44,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
             <p className="text-[12px]/4  text-[#71717A] font-normal">/10</p>
           </div>
           <div>
-            <p className=" text-[#09090B] dark:bg-zinc-800 dark:text-white text-[12px]/4 font-normal font-Inter">
+            <p className=" text-[#09090B] dark:bg-zinc-800 dark:text-white text-[12px]/4 font-normal line-clamp-2">
               {movie?.title}
             </p>
           </div>

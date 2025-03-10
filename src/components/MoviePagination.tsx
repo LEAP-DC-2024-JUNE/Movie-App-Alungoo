@@ -28,9 +28,21 @@ export default function PaginationControls({
   }
 
   const handlePageChange = (page: number) => {
-    const newUrl = `${baseUrl}&page=${page}`;
-    router.push(newUrl);
+    const params = new URLSearchParams(window.location.search);
+    params.set("page", page.toString());
+    router.push(`${baseUrl}&${params.toString()}`, { scroll: false }); // 💕 Dynamic URL blgsn
   };
+
+  // const handlePageChange = (page: number) => {
+  //   const newUrl = `${baseUrl}&page=${page}`;
+  //   router.push(newUrl);
+  // };
+
+  // const handlePageChange = (page: number) => {
+  //   const params = new URLSearchParams(window.location.search);
+  //   params.set("page", page.toString());
+  //   router.push(`/genre/?${params.toString()}`, { scroll: false }); // Prevents full page reload
+  // };
 
   return (
     <Pagination>

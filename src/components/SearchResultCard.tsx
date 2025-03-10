@@ -27,9 +27,9 @@ const SearchResultCard = ({ movie, onSelect }: SearchResultProps) => {
             className=" rounded-[8px] p-0 w-[80px] h-[100px] grayscale-[0.5] hover:grayscale-0"
           />
         </div>
-        <div className=" flex flex-col gap-2 justify-start">
+        <div className=" flex flex-col  justify-start">
           <div>
-            <h1 className=" text-[#09090B] dark:bg-zinc-800 dark:text-white text-[16px]/4 font-bold line-clamp-1">
+            <h1 className=" text-[#09090B] dark:text-white text-[16px]/4 font-bold line-clamp-1">
               {movie.title}
             </h1>
           </div>
@@ -42,20 +42,20 @@ const SearchResultCard = ({ movie, onSelect }: SearchResultProps) => {
             <p className="text-[12px]/4  text-[#71717A] font-normal">/10</p>
           </div>
 
-          <div className=" flex gap-12">
-            <div className=" text-[14px] font-medium">
+          <div className=" flex gap-20">
+            <div className=" mt-2 text-[13px] font-medium">
               {movie.release_date
                 ? new Date(movie.release_date).getFullYear()
                 : "N/A"}
             </div>
-            <div className=" pt-3" onClick={handleClick}>
+            <div className=" pt-5 text-[12px]  " onClick={handleClick}>
               {" "}
               See More →
             </div>
           </div>
         </div>
       </div>
-      <div className=" border-[1px] border-zinc-100 w-full mb-2"></div>
+      <div className=" border-[1px] border-zinc-100 w-full mb-2 border-r-8"></div>
     </>
   );
 };

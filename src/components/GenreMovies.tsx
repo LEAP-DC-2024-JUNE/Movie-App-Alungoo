@@ -21,7 +21,7 @@ const GenreMovies = () => {
   console.log(data);
   return (
     <div className="">
-      <GenreMoviesDropDown genres={data} withButton={false} />
+      <GenreMoviesDropDown genres={data} />
     </div>
   );
 };

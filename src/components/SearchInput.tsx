@@ -46,7 +46,7 @@ const SearchInput = ({ onClose }: SearchInputProps) => {
             className="absolute left-20 z-10"
           />
           <Input
-            className="w-[240px] h-[40px] pl-10 pr-4"
+            className="w-[260px] h-[40px] pl-10 pr-4"
             type="text"
             placeholder="Search..."
             value={searchInput}
@@ -62,7 +62,7 @@ const SearchInput = ({ onClose }: SearchInputProps) => {
         </div>
         {open && searchInput.length > 0 && (
           <div className="absolute z-50 top-12 w-[362px] rounded-md border bg-popover shadow-md animate-in fade-in-80 ">
-            <div className=" p-2">
+            <div className="px-3 ">
               {isLoading ? (
                 <div className=" flex justify-center items-center">
                   <Loader2 className=" animate-spin" />
@@ -82,7 +82,7 @@ const SearchInput = ({ onClose }: SearchInputProps) => {
               )}
             </div>
             <Button
-              className=" pl-4 pb-4 text-zinc-800 cursor-pointer"
+              className="pl-6 pt-0 text-zinc-800 cursor-pointer dark:text-white"
               onClick={handleSearch}
               variant="ghost"
             >

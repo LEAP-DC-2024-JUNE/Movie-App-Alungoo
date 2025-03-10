@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
@@ -7,8 +6,8 @@ import { fetchMovies } from "@/utils/data-fetching";
 import MovieCard from "@/components/MovieCard";
 import { Movie } from "@/utils/types";
 import { LoadingMovieCard } from "@/components/LoadingMovieCard";
-import GenreMoviesDropDown from "./GenreMoviesDropDown";
-import GenreMovies from "./GenreMovies";
+import { fetchGenreMovies } from "@/utils/data-fetching";
+import { Badges } from "../components/Badges";
 
 const SearchResults = () => {
   const searchParams = useSearchParams();
@@ -17,6 +16,11 @@ const SearchResults = () => {
     query ? `/search/movie?query=${query}&language=en-US` : null,
     fetchMovies
   );
+  const { data: MovieGenre } = useSWR(
+    "/genre/movie/list?language=en",
+    fetchGenreMovies
+  );
+  console.log(MovieGenre, "<< movie janar");
 
   if (isLoading) return <LoadingMovieCard />;
   if (error) return <p>Error loading search results.</p>;
@@ -33,8 +37,18 @@ const SearchResults = () => {
           <MovieCard key={movies.id} movie={movies} />
         ))}
       </div>
-      <div>{/* <PaginationControls /> */}</div>
-      <GenreMovies />
+      <div className=" flex flex-col justify-start px-5 gap-3 mt-4 mb-3">
+        <p className=" text-[20px] font-bold"> Search by genre</p>
+        <p className=" text-[16px] font-normal">
+          {" "}
+          See lists of movies by genre
+        </p>
+        <div className="flex flex-row gap-2 flex-wrap  ">
+          {MovieGenre?.map((genre: any) => (
+            <Badges eachGenres={genre} />
+          ))}
+        </div>
+      </div>
     </>
   );
 };
