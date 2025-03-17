@@ -1,15 +1,15 @@
 "use client";
 import { fetchMovies } from "@/utils/data-fetching";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
 import { Badge } from "./ui/badge";
-import YouTube from "react-youtube";
 import { Star } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import MovieCard from "./MovieCard";
-import SeeMoreButton from "./SeeMoreButton";
 import { useRouter } from "next/navigation";
+import YoutubeDialog from "./YoutubeDialog";
+import MovieDetailDesktop from "./MovieDetailDesktop";
 
 const MovieDetail = () => {
   const params = useParams();
@@ -37,8 +37,8 @@ const MovieDetail = () => {
     width: "100%",
   };
 
-  const handleMoviesPage = () => {
-    router.push(`/movies/?type=${movieSimilar?.results}`);
+  const handleSimilarMovie = () => {
+    router.push(`/similarMovies/?id=${id}`);
     console.log(movieSimilar?.results, ">>Similar movie");
   };
   const videos = movieVideo?.results || movieVideo || [];
@@ -57,11 +57,11 @@ const MovieDetail = () => {
     return `${hours}h ${mins}m`;
   };
 
-  console.log(movieSimilar, "<<<< moviesimilr id bn");
+  console.log(movieVideo, "<<<< movieVideo id bn");
 
   return (
     <>
-      <div className=" pt-8 flex justify-between px-5 pb-4">
+      <div className=" pt-8 flex justify-between px-5  md:px-[150px] pb-4">
         <div>
           <div className=" font-bold">{movieDetail?.title}</div>
           <div className=" flex  gap-1 items-center">
@@ -89,40 +89,60 @@ const MovieDetail = () => {
           </div>
         </div>
       </div>
-      {videoKey ? (
-        <div className="w-full  overflow-hidden">
-          <YouTube videoId={videoKey} opts={opts} className="w-full" />
+      <div className=" md:hidden contents">
+        <div className="relative flex flex-col md:flex-row">
+          <img
+            src={`https://image.tmdb.org/t/p/w400${movieDetail?.backdrop_path}`}
+            alt="movie poster"
+            className="w-full min-h-[211px] "
+          />
+
+          <div className="absolute bottom-4 left-4 flex items-center gap-3 cursor-pointer">
+            <YoutubeDialog trailerKey={videos} isDetailPage={true} />
+          </div>
         </div>
-      ) : (
-        <div className="w-full h-[412px] bg-gray-200 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-          <p className="text-gray-500 dark:text-gray-400">
-            No trailer available
-          </p>
-        </div>
-      )}
-      <div className=" flex gap-8 px-5 pt-8">
-        <img
-          src={`https://image.tmdb.org/t/p/w400${movieDetail?.poster_path}`}
-          alt="movie poster"
-          className="  p-0 w-[100px] h-[148px] grayscale-[0.5] hover:grayscale-0"
-        />
-        <div className="flex flex-wrap gap-2">
-          {movieDetail?.genres?.map((genre: any) => (
-            <Badge
-              variant="outline"
-              key={genre.id}
-              className="rounded-full px-3 w-22 text-center"
-            >
-              {genre?.name}
-            </Badge>
-          ))}
-          <p className="text-sm leading-relaxed overflow-auto ">
-            {movieDetail?.overview}
-          </p>
+
+        <div className=" flex gap-8 px-5  md:px-[150px] pt-8">
+          <img
+            src={`https://image.tmdb.org/t/p/w400${movieDetail?.poster_path}`}
+            alt="movie poster"
+            className="  p-0 w-[100px] h-[148px]"
+          />
+          <div className="flex flex-wrap gap-2">
+            {movieDetail?.genres?.map((genre: any) => (
+              <Badge
+                variant="outline"
+                key={genre.id}
+                className="rounded-full  text-center"
+              >
+                {genre?.name}
+              </Badge>
+            ))}
+            <p className="text-sm leading-relaxed overflow-auto ">
+              {movieDetail?.overview}
+            </p>
+          </div>
         </div>
       </div>
-      <div className=" flex flex-col px-5 gap-5 pt-5">
+      <div className=" hidden md:contents">
+        <MovieDetailDesktop />
+      </div>
+      <div className=" flex flex-col px-5  md:px-[150px] gap-5 pt-5">
         <div className=" flex gap-[53px] items-center">
+          <p className=" font-bold">Director:</p>
+          <p className="">
+            {movieCredits?.crew
+              ?.slice(0, 1)
+              .map((writers: any, index: number, array: any) => (
+                <span className=" text-sm" key={writers.id}>
+                  {writers.name}
+                  {index !== array.length - 1 ? " • " : ""}
+                </span>
+              ))}
+          </p>
+        </div>
+        <Separator orientation="horizontal" />
+        <div className=" flex gap-[57px] items-center">
           <p className=" font-bold">Writers:</p>
           <p className="">
             {movieCredits?.crew
@@ -130,13 +150,13 @@ const MovieDetail = () => {
               .map((writers: any, index: number, array: any) => (
                 <span className=" text-sm" key={writers.id}>
                   {writers.name}
-                  {index !== array.length - 1 ? " •" : ""}
+                  {index !== array.length - 1 ? " • " : ""}
                 </span>
               ))}
           </p>
         </div>
         <Separator orientation="horizontal" />
-        <div className="flex gap-[63px] items-center">
+        <div className="flex gap-[65px] items-center">
           <p className=" font-bold">Stars:</p>
           <p className=" ">
             {movieCredits?.cast && movieCredits.cast.length > 0 ? (
@@ -145,7 +165,7 @@ const MovieDetail = () => {
                 .map((stars: any, index: number, array: any) => (
                   <span className=" text-sm" key={index}>
                     {stars.name}
-                    {index !== array.length - 1 ? " •" : ""}
+                    {index !== array.length - 1 ? " • " : ""}
                   </span>
                 ))
             ) : (
@@ -155,17 +175,34 @@ const MovieDetail = () => {
         </div>
         <Separator orientation="horizontal" />
       </div>
-      <div className=" flex flex-col justify-start px-5 py-8">
-        <div className=" flex justify-between">
-          <p className=" font-bold text-[24px]">More like this</p>
-          <p onClick={handleMoviesPage}>
-            <SeeMoreButton categoryType="More like this" />
+      <div className=" flex flex-col justify-start px-5  md:px-[150px] py-8">
+        <div className=" flex justify-between items-center">
+          <p className=" font-semibold text-[24px]">More like this</p>
+          <p
+            className=" cursor-pointer text-[14px]"
+            onClick={handleSimilarMovie}
+          >
+            See more →
           </p>
         </div>
-        <div className=" flex flex-row gap-5 mt-4">
-          {movieSimilar?.results.slice(0, 2).map((movie: any) => (
-            <MovieCard movie={movie} />
-          ))}
+        <div className="grid gap-5 grid-cols-2 mt-4 md:grid-cols-5">
+          {movieSimilar ? (
+            <>
+              <div className="contents md:hidden">
+                {movieSimilar?.results.slice(0, 2).map((movie: any) => (
+                  <MovieCard movie={movie} key={movie.id} />
+                ))}
+              </div>
+
+              <div className="hidden md:contents">
+                {movieSimilar?.results.slice(0, 5).map((movie: any) => (
+                  <MovieCard movie={movie} key={movie.id} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <p className="font-bold ">"Oops, no similar movies available"</p>
+          )}
         </div>
       </div>
     </>

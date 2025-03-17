@@ -25,12 +25,12 @@ const MovieContainer = ({ movies, title, type }: MovieContainerProps) => {
     );
   const isOnMoviePage = pathname.startsWith("/movies");
   return (
-    <div className=" px-[20px] flex flex-col gap-[32px] w-full">
-      <div className=" flex flex-row items-center justify-between">
-        <p className=" text-[24px] font-normal tracking-[-0.6px]">{title}</p>
+    <div className="px-[20px] flex flex-col gap-7 justify-evenly  md:px-[80px] ">
+      <div className="flex items-start justify-between w-full">
+        <p className="text-[24px] tracking-[-0.6px] font-semibold">{title}</p>
         {!isOnMoviePage && <SeeMoreButton categoryType={type} />}
       </div>
-      <div className=" grid gap-5 grid-cols-2">
+      <div className="grid gap-5 grid-cols-2 md:grid-cols-5 w-full">
         {movies?.map((movie) => {
           return <MovieCard key={movie.id} movie={movie} />;
         })}

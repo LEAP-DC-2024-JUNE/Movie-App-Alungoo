@@ -33,20 +33,21 @@ const SearchInput = ({ onClose }: SearchInputProps) => {
   const closeDropDown = () => {
     setOpen(false);
   };
+
   console.log(data, "input");
   return (
-    <>
-      <div className=" relative flex gap-4 items-center h-auto">
+    <div className=" flex flex-row items-center w-full h-[59px] ">
+      <div className="relative flex w-full gap-2 items-center">
         <GenreMovies />
-        <div className="flex items-center">
+        <div className="flex items-center flex-1 relative">
           <Search
             size={16}
             strokeWidth={2}
             color="#71717A"
-            className="absolute left-20 z-10"
+            className="absolute left-3 z-10"
           />
           <Input
-            className="w-[260px] h-[40px] pl-10 pr-4"
+            className="w-full h-[36px] pl-10 pr-4"
             type="text"
             placeholder="Search..."
             value={searchInput}
@@ -61,11 +62,11 @@ const SearchInput = ({ onClose }: SearchInputProps) => {
           />
         </div>
         {open && searchInput.length > 0 && (
-          <div className="absolute z-50 top-12 w-[362px] rounded-md border bg-popover shadow-md animate-in fade-in-80 ">
-            <div className="px-3 ">
+          <div className="absolute z-50 top-10 left-0 right-0 w-full rounded-md border bg-popover shadow-md animate-in fade-in-80">
+            <div className="px-3">
               {isLoading ? (
-                <div className=" flex justify-center items-center">
-                  <Loader2 className=" animate-spin" />
+                <div className="flex justify-center items-center">
+                  <Loader2 className="animate-spin" />
                 </div>
               ) : data?.results && data.results.length > 0 ? (
                 data.results
@@ -90,11 +91,16 @@ const SearchInput = ({ onClose }: SearchInputProps) => {
             </Button>
           </div>
         )}
-        <Button variant="ghost" size="icon" onClick={onClose}>
+        <Button
+          className="text-zinc-800 cursor-pointer dark:text-white md:hidden"
+          variant="ghost"
+          size="icon"
+          onClick={onClose}
+        >
           <X />
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -30,9 +30,9 @@ export default function PaginationControls({
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(window.location.search);
     params.set("page", page.toString());
-    router.push(`${baseUrl}&${params.toString()}`, { scroll: false }); // 💕 Dynamic URL blgsn
+    const cleanBaseUrl = baseUrl.split("?")[0];
+    router.push(`${cleanBaseUrl}?${params.toString()}`, { scroll: false });
   };
-
   // const handlePageChange = (page: number) => {
   //   const newUrl = `${baseUrl}&page=${page}`;
   //   router.push(newUrl);

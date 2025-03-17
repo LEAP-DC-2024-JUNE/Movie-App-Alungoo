@@ -18,7 +18,7 @@ const GenreMovies = () => {
       </div>
     );
   if (error) return <div>Failed to load genres</div>;
-  console.log(data);
+  console.log(data, ">>genre types");
   return (
     <div className="">
       <GenreMoviesDropDown genres={data} />

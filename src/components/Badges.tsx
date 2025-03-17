@@ -1,27 +1,50 @@
 import { Badge } from "@/components/ui/badge";
 import { ChevronRight, X } from "lucide-react";
 import { MovieGenre } from "@/utils/types";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
 type GenresProps = {
   eachGenres: MovieGenre;
+  setSelectedGenres: (genres: number[]) => void;
+  selectedGenres: number[];
 };
-export function Badges({ eachGenres }: GenresProps) {
-  const [clicked, setClicked] = useState(false);
+
+export function Badges({
+  eachGenres,
+  setSelectedGenres,
+  selectedGenres,
+}: GenresProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const genreParam = searchParams.get("genre");
+  const selectedIds = genreParam ? genreParam.split(",").map(Number) : [];
+
+  const isSelected = selectedIds.includes(eachGenres.id);
+
   const handleBadgeClick = () => {
-    setClicked(!clicked);
-    router.push(`/genre/?genre=${eachGenres.id}`);
+    const updatedGenres = isSelected
+      ? selectedIds.filter((id) => id !== eachGenres.id)
+      : [...selectedIds, eachGenres.id];
+
+    setSelectedGenres(updatedGenres);
+    router.push(
+      updatedGenres.length
+        ? `/genre?genre=${updatedGenres.join(",")}`
+        : "/genre"
+    );
   };
-  console.log(eachGenres.id, " eahchGenreID");
+
   return (
     <Badge
-      onClick={handleBadgeClick}
       variant="outline"
-      className=" rounded-full flex items-center text-[12px] gap-4 cursor-pointer hover:bg-black hover:text-white "
+      onClick={handleBadgeClick}
+      className={`rounded-full flex items-center text-[12px] gap-3 cursor-pointer hover:bg-white hover:text-black ${
+        isSelected ? "bg-black text-white" : "bg-white text-black"
+      }`}
     >
-      {eachGenres.name}
-      {clicked ? <X size={13} /> : <ChevronRight size={13} />}
+      {eachGenres.name}{" "}
+      {isSelected ? <X size={13} /> : <ChevronRight size={13} />}
     </Badge>
   );
 }

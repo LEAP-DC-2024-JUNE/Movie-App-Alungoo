@@ -1,7 +1,7 @@
 import { Movie } from "@/utils/types";
 import React, { useState } from "react";
-import { Star } from "lucide-react";
-import SeeMoreButton from "./SeeMoreButton";
+import { ChevronRight, Star } from "lucide-react";
+
 import { useRouter } from "next/navigation";
 
 type SearchResultProps = {
@@ -19,7 +19,7 @@ const SearchResultCard = ({ movie, onSelect }: SearchResultProps) => {
   };
   return (
     <>
-      <div className=" flex gap-3 p-2" onClick={handleClick}>
+      <div className=" flex gap-4 p-2" onClick={handleClick}>
         <div>
           <img
             src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
@@ -27,7 +27,7 @@ const SearchResultCard = ({ movie, onSelect }: SearchResultProps) => {
             className=" rounded-[8px] p-0 w-[80px] h-[100px] grayscale-[0.5] hover:grayscale-0"
           />
         </div>
-        <div className=" flex flex-col  justify-start">
+        <div className=" flex flex-col pt-3 justify-start">
           <div>
             <h1 className=" text-[#09090B] dark:text-white text-[16px]/4 font-bold line-clamp-1">
               {movie.title}
@@ -42,13 +42,16 @@ const SearchResultCard = ({ movie, onSelect }: SearchResultProps) => {
             <p className="text-[12px]/4  text-[#71717A] font-normal">/10</p>
           </div>
 
-          <div className=" flex gap-20">
+          <div className=" flex gap-[6rem] md:gap-[12rem] ">
             <div className=" mt-2 text-[13px] font-medium">
               {movie.release_date
                 ? new Date(movie.release_date).getFullYear()
                 : "N/A"}
             </div>
-            <div className=" pt-5 text-[12px]  " onClick={handleClick}>
+            <div
+              className=" mt-6 text-[12px] cursor-pointer "
+              onClick={handleClick}
+            >
               {" "}
               See More →
             </div>

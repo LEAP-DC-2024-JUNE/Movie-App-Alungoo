@@ -8,12 +8,12 @@ import { LoadingMovieCard } from "@/components/LoadingMovieCard";
 import PaginationControls from "../components/MoviePagination";
 
 const MoviesPaged = () => {
-  const searchParams = useSearchParams();
-  const type = searchParams.get("type") || "popular";
-  const currentPage = parseInt(searchParams.get("page") || "1", 10);
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
+  const searchParams = useSearchParams();
+  const type = searchParams.get("type") || "popular";
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
   useEffect(() => {
     const fetchMoviesByCategory = async () => {
@@ -38,15 +38,20 @@ const MoviesPaged = () => {
     .replace(/\b\w/g, (char) => char.toUpperCase());
 
   return (
-    <div className=" flex flex-col gap-5">
-      <MovieContainer title={formattedTitle} type={type} movies={movies} />
-      <PaginationControls
-        currentPage={currentPage}
-        totalPages={totalPages}
-        baseUrl={`/movies?type=${type}`}
-      />
-    </div>
+    <>
+      <div className=" flex flex-col gap-5 pt-7">
+        <MovieContainer title={formattedTitle} type={type} movies={movies} />
+      </div>
+      <div className="md:pr-[80px] md:flex md:justify-end">
+        <div className="md:mt-5">
+          <PaginationControls
+            currentPage={currentPage}
+            totalPages={totalPages}
+            baseUrl={`/movies?type=${type}`}
+          />
+        </div>
+      </div>
+    </>
   );
 };
-
 export default MoviesPaged;
